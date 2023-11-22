@@ -4,7 +4,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <unistd.h>
-#include <strings.h>
+#include <string.h>
 
 void error(const char* msg)
 {
@@ -21,7 +21,7 @@ int start_server(int port)
 	struct sockaddr_in server_addr, client_addr;
 	if(sockfd < 0)
 		error("[ERROR] could not open socket");
-	bzero((char *) &server_addr, sizeof(server_addr));		
+	memset((char *) &server_addr, 0, sizeof(server_addr));		
 	server_addr.sin_family = AF_INET;
 	server_addr.sin_port = htons(port);
 	server_addr.sin_addr.s_addr = INADDR_ANY;
@@ -32,7 +32,7 @@ int start_server(int port)
 	newsockfd = accept(sockfd, (struct sockaddr *) &client_addr, &clilen);
 	if(newsockfd < 0)
 		error("[ERROR] could not accept connection");
-	bzero(buffer, 255);
+	memset(buffer, 0, 255);
 	n = read(newsockfd, buffer, 255);
 	if(n < 0) error("[ERROR] error while reading from socket");
 	printf("Here is the message %s", buffer);
