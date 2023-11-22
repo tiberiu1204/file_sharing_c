@@ -1,6 +1,7 @@
 #include<stdio.h>
-int main(int argc, char **argv)
+#include "server.h"
+int main()
 {
-	printf("Hello World!");
+	start_server(8081);
 	return 0;
 }
